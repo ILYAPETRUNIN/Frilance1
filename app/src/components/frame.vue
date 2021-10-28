@@ -63,11 +63,13 @@ export default {
 </script>
 
 <style lang="scss">
-$inputColor:#175351;
+@import '@/scss/main.scss';
 
 .tooltip {
   display: block !important;
   z-index: 10000;
+  font-family: Open\ Sans,Arial,Helvetica,sans-serif;
+  font-size:11px;
 
   .tooltip-inner {
     background: white;
@@ -174,19 +176,7 @@ $inputColor:#175351;
 
 <style lang="scss" scoped>
 
-$errorColor:#eb5757;
-$screenColor:white;
-$laptopColor:#f2f2f2;
-$labelColor:#749897;
-$inputColor:#175351;
-$focusColor:#007aff;
-
-@mixin laptop {
-  @media screen and (max-width: 960px) {
-    @content;
-  }
-}
-
+@import '@/scss/main.scss';
 
 
     .text-field{

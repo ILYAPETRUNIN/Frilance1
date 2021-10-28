@@ -96,6 +96,12 @@ export default {
         hasError:function(val){
             if(val) this.inputVal=this.errorText
         },
+        // inputVal:function(val){
+        //     if(!this.multiple){
+        //         this.selected=this.options.find((elements)=>{return elements.value==val}).label
+          
+        //     }
+        // }
     }
     ,
     methods:{
@@ -105,15 +111,15 @@ export default {
         
         select(option){
             if(!this.multiple){
-                this.selected=Object.assign({}, option)
+                this.selected=Object.assign({},option)
                 this.active=false
-                this.inputVal=option 
+                this.inputVal=option.value
             }
 
             else {
                 if(!this.multipleSelected.some((element)=>{return element.value==option.value})){
                     this.multipleSelected.push(Object.assign({}, option))
-                    this.inputVal=this.multipleSelected
+                    this.inputVal=this.multipleSelected.map((element)=>{return element.value})
                 }
             }       
         },
@@ -143,22 +149,7 @@ export default {
 </style>
 
 <style lang="scss" scoped>
-
-$errorColor:#eb5757;
-$screenColor:white;
-$laptopColor:#f2f2f2;
-$labelColor:#749897;
-$inputColor:#175351;
-$focusColor:#007aff;
-$focusColor1:#749897;
-$badgeColor:#ffba51;
-
-@mixin laptop {
-  @media screen and (max-width: 960px) {
-    @content;
-  }
-}
-
+@import '@/scss/main.scss';
 
 
     .text-field{
@@ -238,8 +229,10 @@ $badgeColor:#ffba51;
         width:100%;
         border:none;
         top:40px;
+        left:-2px;
         border:2px solid transparent;
-        box-shadow: 0px 0px 10px 0 rgba(0, 0, 0, 0.05);
+        border-radius: 10px;
+        box-shadow: 0px 5px 10px 0 rgba(0, 0, 0, 0.05);
         max-height:308px;
         background:white;
         & > div{

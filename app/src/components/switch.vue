@@ -54,18 +54,7 @@ export default {
 
 
 <style lang="scss" scoped>
-@mixin laptop {
-  @media screen and (max-width: 960px) {
-    @content;
-  }
-}
-
-$errorColor:#eb5757;
-$screenColor:white;
-$laptopColor:#f2f2f2;
-$labelColor:#749897;
-$inputColor:#175351;
-$focusColor:#007aff;
+@import '@/scss/main.scss';
 
 .switch{
         display:flex;

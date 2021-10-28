@@ -1,6 +1,6 @@
 <template>
   <div class='v-checkbox'>
-      <div class='text-field__label'>
+      <div class='v-checkbox__label'>
             <label class='checkbox__label' for="name">{{label}}</label>
             <span class="text-field__label_required" v-if='required'>*</span>
       </div>
@@ -38,18 +38,8 @@ export default {
 </script>
 
 <style lang="scss" >
-$errorColor:#eb5757;
-$screenColor:white;
-$laptopColor:#f2f2f2;
-$labelColor:#749897;
-$inputColor:#175351;
-$focusColor:#007aff;
+@import '@/scss/main.scss';
 
-@mixin laptop {
-  @media screen and (max-width: 960px) {
-    @content;
-  }
-}
     .v-checkbox{
         display:flex;
         align-items:center;

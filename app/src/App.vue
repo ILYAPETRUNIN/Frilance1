@@ -18,7 +18,7 @@
 
       <div class='container'>
           <Switcher name='Switch1' :options='optionsSwitch' multiple v-model='switchField.multiple' label='Переключалка с multiple' description='Описание'/>
-          <Switcher name='Switch2' :options='optionsSwitch' v-model='switchField.notMultiple' label='Переключалка без multiple' description='Описание 1'/>
+          <Switcher name='Switch2' :options='optionsSwitch' v-model='switchField.notMultiple' label='Переключалка без multiple' description='Описание'/>
           <Switcher name='Switch3' :options='optionsSwitch' v-model='switchField.error' label='Переключалка без multiple' description='Описание' hasError errorText='Поле с ошибкой'/>
       </div>
 
@@ -87,6 +87,8 @@ export default {
   },
 };
 </script>
+
+
 
 <style lang="scss" scoped>
 @mixin laptop {
