@@ -1,40 +1,44 @@
 <template>
-        <FrameUI  v-bind="$props" :focused='focused'>
-            <input :id='name' v-on:keypress='onlyNumber'  @focus="focused = true" @blur="focused = false" v-model='inputVal' class="text-field__input" type="text">
-        </FrameUI>
+        <div class='text-field'>
+            <label class="text-field__label" :for="name">
+                {{label}}
+                <span class="text-field__label_required" v-if='required'>*</span>
+            </label>
+            <div class="text-field__field">
+                <div :class='{focus:focused,error:hasError,transparent:transparent}' class='text-field__inner'>
+                    <p class='text-field__error' v-if='hasError'>{{errorText}}</p>
+                    <slot></slot>
+                </div>
+                <div v-if='description' class='text-field__description'>
+    
+                <v-popover placement='top' offset="20">
+                    <div  @click='isShowDescription=true' class='text-field__description_icon'>
+                        <svg xmlns="http://www.w3.org/2000/svg" width='20px' height='20px'>
+                            <path d="M7.65 14.6h1.7v-1.7h-1.7v1.7zM8.5 1A8.503 8.503 0 000 9.5C0 14.192 3.808 18 8.5 18S17 14.192 17 9.5 13.192 1 8.5 1zm0 15.3a6.809 6.809 0 01-6.8-6.8c0-3.748 3.051-6.8 6.8-6.8 3.748 0 6.8 3.051 6.8 6.8 0 3.748-3.052 6.8-6.8 6.8zm0-11.9a3.4 3.4 0 00-3.4 3.4h1.7c0-.935.765-1.7 1.7-1.7.935 0 1.7.765 1.7 1.7 0 1.7-2.55 1.487-2.55 4.25h1.7c0-1.913 2.55-2.125 2.55-4.25a3.4 3.4 0 00-3.4-3.4z"></path>
+                        </svg>
+                    </div>
+
+                    <template slot="popover">
+                        {{description}}
+                    </template>
+                      
+                </v-popover>
+                </div>
+            </div>
+        </div>
 </template>
 
 <script>
 
-import FrameUI from './frame.vue'
+import Vue from 'vue'
+import VTooltip from 'v-tooltip'
 
-
+Vue.use(VTooltip)
 
 export default {
-    components:{
-        FrameUI
-    },
-
     data(){
         return{
-            focused:false,
             isShowDescription:false
-        }
-    },
-    computed:{
-        inputVal:{
-            get(){
-                if(this.value.includes(","))    return this.value
-                else return this.toLocaleNumber(this.value).toLocaleString('ru-RU')
-            },
-            set(val){
-                if(val.includes(","))    this.$emit('input',val)
-                else  this.$emit('input',this.toLocaleNumber(val).toLocaleString('ru-RU'))           
-            }
-        },
-
-        numValue(){
-            return this.toLocaleNumber(this.inputVal)
         }
     },
 
@@ -45,43 +49,22 @@ export default {
         hasError:{type:Boolean},
         required:{type:Boolean},
         description:{type:String},
-        value:{type:String,default:''},
+        value:{type:String,default:null},
+        focused:{type:Boolean,default:false},
+        transparent:{type:Boolean,default:false}
     },
 
-    watch:{
-        hasError:function(val){
-            if(val) this.inputVal=this.errorText
-        }
-    }
-    ,
     methods:{
         clickAway(){
             this.isShowDescription=false
-        },
-
-        onlyNumber(event){
-            if(/^[0-9]$/.test(event.key)){
-                if((this.inputVal.split(',')[1] || '').length < 2) return;
-                event.preventDefault();
-            }
-            else if(/^[.,]$/.test(event.key)){
-                event.preventDefault();
-                if(this.inputVal.includes(",")) return;
-                this.inputVal=this.inputVal+","            
-            }
-            else event.preventDefault();          
-        }, 
-
-        toLocaleNumber(val){
-            let result=val.replace(/\s/g, '');
-            result=result.replace(',','.')
-            return Number(result)
         }
     }
 }
 </script>
 
 <style lang="scss">
+$inputColor:#175351;
+
 .tooltip {
   display: block !important;
   z-index: 10000;
@@ -177,6 +160,16 @@ export default {
   }
 
 }
+.text-field__input{
+            width:100%;
+            outline:none;
+            border:none;
+            background:transparent;
+            padding:15px;
+            z-index:2;
+            color: $inputColor;
+            font-size: 14px;
+        }
 </style>
 
 <style lang="scss" scoped>
@@ -201,6 +194,7 @@ $focusColor:#007aff;
         flex-direction: column;
         align-items: flex-start;
         width:100%;
+        z-index:1;
 
         &__label{
             padding: 0;
@@ -225,30 +219,19 @@ $focusColor:#007aff;
             display:flex;
             width:100%;
             background:$screenColor;
+            align-items:center;
             @include laptop{background:$laptopColor};
             height:50px;
             border-radius: 10px;
-            z-index:1;
             border:2px solid transparent;
             box-shadow: 0px 0px 10px 0 rgba(0, 0, 0, 0.05);
             transition: all .3s;
             position: relative;
         }
 
-        &__input{
-            width:100%;
-            outline:none;
-            border:none;
-            background:transparent;
-            padding:15px;
-            z-index:2;
-            color: $inputColor;
-            font-size: 14px;
-        }
-
         &__error{
             position:absolute;
-            margin-top:2px;
+            top:-7px;
             margin-left:15px;
             font-size: 11px;
             color:$errorColor;
@@ -268,5 +251,10 @@ $focusColor:#007aff;
     }
     .error{
         border:2px solid $errorColor;
+    }
+
+    .transparent{
+      background-color:transparent!important;
+      box-shadow: none!important;
     }
 </style>
