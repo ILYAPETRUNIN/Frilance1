@@ -49,7 +49,6 @@ export default {
         hasError:{type:Boolean},
         required:{type:Boolean},
         description:{type:String},
-        value:{type:String,default:null},
         focused:{type:Boolean,default:false},
         transparent:{type:Boolean,default:false}
     },

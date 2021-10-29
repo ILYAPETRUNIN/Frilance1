@@ -40,7 +40,8 @@
       </div>
 
       <div class='container'>
-          <AdressField v-model='adressField' name='addresField' label='Адрес объекта' description="Описание адреса"/>
+          <AdressField :style="{marginRight:'10px'}"  v-model='adressField' name='addresField1' label='Адрес объекта' description="Описание адреса"/>
+          <AdressField v-model='adressField1' name='addresField2' label='Адрес объекта' description="Описание адреса" required hasError errorText='Ошибка'/>
       </div>
       
   </div>
@@ -87,6 +88,7 @@ export default {
         two:false,
       },
       adressField:{},
+      adressField1:{},
       optionsList,
       optionsSwitch
     }

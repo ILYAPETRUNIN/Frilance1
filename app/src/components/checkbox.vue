@@ -51,7 +51,6 @@ export default {
             width:16px;
             height:16px;
             background:transparent;
-            z-index:2;
             border: 2px solid #175351;
             border-radius: 4px;
             transition:opacity 0.5, border .15s , background .15s , transform .15s;
