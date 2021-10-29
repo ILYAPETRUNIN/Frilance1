@@ -1,6 +1,6 @@
 <template>
         <FrameUI  v-bind="$props" :focused='focused'>
-            <input :id='name' @focus="focused = true" @blur="focused = false" v-model='inputVal' class="text-field__input" type="text">
+            <input :placeholder='placeholder' :id='name' @focus="focused = true" @blur="focused = false" v-model='inputVal' class="text-field__input" type="text">
         </FrameUI>
 </template>
 
@@ -39,6 +39,7 @@ export default {
         required:{type:Boolean},
         description:{type:String},
         value:{type:String,default:null},
+        placeholder:{type:String,default:null},
     },
 
 }

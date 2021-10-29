@@ -1,35 +1,46 @@
 <template>
   <div id="app">
       <div  class='container'>
-          <TextField name='textField1' v-model='textField' required label='Текстовое поле'  description='Описание'/>
+          <TextField :style="{marginRight:'10px'}" name='textField1' v-model='textField' required label='Текстовое поле'  description='Описание'/>
           <TextField name='textField2' v-model='textField' hasError errorText='Поле с ошибкой' required label='Текстовое поле'  description='Описание'/>
       </div>
       
       <div class='container'>
-          <NumberField name='NumberField1' v-model='numberField' label='Числовое поле' description='Описание'/>
+          <NumberField :style="{marginRight:'10px'}" name='NumberField1' v-model='numberField' label='Числовое поле' description='Описание'/>
           <NumberField name='NumberField2' v-model='numberField' hasError errorText='Поле с ошибкой' label='Числовое поле' description='Описание'/>
       </div>
 
       <div class='container'>
-          <List name='List1' hasError errorText='Поле с ошибкой' :options='optionsList' v-model='listField' label='Выпадающий список' description='Описание'/>
-          <List name='List2' autocomplete :options='optionsList' v-model='listField' label='Выпадающий список autoComplete' description='Описание'/>
-          <List name='List3' multiple :options='optionsList' v-model='listField' label='Выпадающий список multiple' description='Описание'/>
+          <List :style="{marginRight:'10px'}" name='List1' hasError errorText='Поле с ошибкой' :options='optionsList' v-model='listField' label='Выпадающий список' description='Описание'/>
+          <List :style="{marginRight:'10px'}" name='List2' autocomplete :options='optionsList' v-model='listField' label='Выпадающий список autoComplete' description='Описание'/>
+          <List :style="{marginRight:'10px'}" name='List3' multiple :options='optionsList' v-model='listField' label='Выпадающий список multiple' description='Описание'/>
       </div>
 
       <div class='container'>
-          <Switcher name='Switch1' :options='optionsSwitch' multiple v-model='switchField.multiple' label='Переключалка с multiple' description='Описание'/>
-          <Switcher name='Switch2' :options='optionsSwitch' v-model='switchField.notMultiple' label='Переключалка без multiple' description='Описание'/>
+          <Switcher :style="{marginRight:'10px'}" name='Switch1' :options='optionsSwitch' multiple v-model='switchField.multiple' label='Переключалка с multiple' description='Описание'/>
+          <Switcher :style="{marginRight:'10px'}" name='Switch2' :options='optionsSwitch' v-model='switchField.notMultiple' label='Переключалка без multiple' description='Описание'/>
           <Switcher name='Switch3' :options='optionsSwitch' v-model='switchField.error' label='Переключалка без multiple' description='Описание' hasError errorText='Поле с ошибкой'/>
       </div>
 
       <div class='checkBox'>
-          <CheckBox required name='CheckBox1' label='Я чекбокc' v-model='checkboxField.one'/>
-          <CheckBox name='CheckBox1' label='Я тоже чекбокc' v-model='checkboxField.two'/>
+          <CheckBox :style="{marginBottom:'10px'}" required name='CheckBox1' label='Я чекбокc' v-model='checkboxField.one'/>
+          <CheckBox :style="{marginBottom:'10px'}" name='CheckBox1' label='Я тоже чекбокc' v-model='checkboxField.two'/>
       </div>
 
       <div class='container'>
-          <ButtonUI label='Я кнопка' name='Button1'/>
-          <ButtonUI label='Я тоже' name='Button2'/>
+          <ButtonUI :style="{marginRight:'10px'}" label='Я кнопка' name='Button1'/>
+          <ButtonUI :style="{marginRight:'10px'}" label='Я тоже' invert name='Button2'/>
+          <ButtonUI label='Я отключена' disabled name='Button3'/>
+      </div>
+
+      <div :style="{marginBottom:'50px'}">
+          <PromoCode :style="{marginBottom:'10px'}" name='promoCode1' />
+          <PromoCode :style="{marginBottom:'10px'}" name='promoCode2' isApplyed/>
+          <PromoCode name='promoCode3' errorText='Промокод не действителен'/>
+      </div>
+
+      <div class='container'>
+          <AdressField v-model='adressField' name='addresField' label='Адрес объекта' description="Описание адреса"/>
       </div>
       
   </div>
@@ -40,8 +51,10 @@ import TextField from "./components/textField.vue";
 import NumberField from "./components/numberField.vue";
 import List from "./components/list.vue";
 import Switcher from "./components/switch.vue";
-import CheckBox from "./components/checkbox.vue";
+import CheckBox from "./components/toogleButton.vue";
 import ButtonUI from "./components/button.vue";
+import PromoCode from "./components/PromoCode.vue";
+import AdressField from "./components/adressField.vue";
 
 let optionsList= [
           { value: 'sber', label: 'СБЕРБАНК',isOnline:true },
@@ -73,6 +86,7 @@ export default {
         one:true,
         two:false,
       },
+      adressField:{},
       optionsList,
       optionsSwitch
     }
@@ -83,7 +97,9 @@ export default {
       List,
       Switcher,
       CheckBox,
-      ButtonUI
+      ButtonUI,
+      PromoCode,
+      AdressField
   },
 };
 </script>

@@ -1,5 +1,5 @@
 <template>
-    <button @click='click' class='button'>{{label}}</button>
+    <button @click='click' :disabled='disabled' :class='{invert__button:invert,disabled:disabled}' class='button'>{{label}}</button>
 </template>
 
 <script>
@@ -40,6 +40,27 @@ export default {
         &:hover{
 
             background-color: $buttonHover
+        }
+    }
+
+    .invert{
+        &__button{
+            background-color: white;
+            border:2px solid $focusColor;
+            color: #c1cecb;
+            &:hover{
+               background-color: $focusColor;   
+               color:white;        
+            }
+        }
+    }
+
+    .disabled{
+        cursor:auto;
+        background-color: #c1cecb; 
+        &:hover{
+            background-color: #c1cecb;   
+            color:white;    
         }
     }
 </style>
