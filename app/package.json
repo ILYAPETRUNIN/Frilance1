@@ -49,8 +49,6 @@
     "rules": {}
   },
   "browserslist": [
-    "> 1%",
-    "last 2 versions",
-    "not dead"
+    "last 20 versions,not dead, > 0%"
   ]
 }
