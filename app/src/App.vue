@@ -33,7 +33,7 @@
           <ButtonUI label='Я отключена' disabled name='Button3'/>
       </div>
 
-      <div :style="{marginBottom:'50px'}">
+      <div :style="{marginBottom:'50px',padding:'20px',border:'1px solid black'}">
           <PromoCode :style="{marginBottom:'10px'}" name='promoCode1' />
           <PromoCode :style="{marginBottom:'10px'}" name='promoCode2' isApplyed/>
           <PromoCode name='promoCode3' errorText='Промокод не действителен'/>
@@ -45,9 +45,20 @@
       </div>
 
        <div class='container'>
-          <NameField token='312eddceaa8cc4208e30c15ad2e402392e275a8e' v-model='nameField' name='nameField1' label='Фамилия Имя Отчество' description="Описание ФИО"/>
+          <NameField token='312eddceaa8cc4208e30c15ad2e402392e275a8e' v-model='nameField1' name='nameField1' label='Фамилия Имя Отчество' description="Описание ФИО"/>
+           <NameField token='312eddceaa8cc4208e30c15ad2e402392e275a8e' v-model='nameField2' name='nameField2' label='Фамилия Имя Отчество' description="Описание ФИО" required hasError errorText='Ошибка'/>
        </div>
+
+       <div class='container'>
+            <DateField name='dateField1' v-model='dateField1' label='Дата рождения' description="Описание даты"/>
+            <DateField name='dateField2' v-model='dateField2' label='Дата рождения' description="Описание ФИО" required hasError errorText='Ошибка'/>
+        </div>
       
+        <div class='basket'>
+            <Basket :summ='Number(diagram.summ)' :items='diagram.array'/>
+            <input v-model='diagram.summ'  type="number">
+            <button @click='addDiarammArray'>Добавить компонент</button>
+        </div>
       
   </div>
 </template>
@@ -62,6 +73,8 @@ import ButtonUI from "./components/button.vue";
 import PromoCode from "./components/PromoCode.vue";
 import AdressField from "./components/adressField.vue";
 import NameField from "./components/nameField.vue";
+import DateField from "./components/dateField.vue";
+import Basket from "./components/basket.vue";
 
 let optionsList= [
           { value: 'sber', label: 'СБЕРБАНК',isOnline:true },
@@ -75,6 +88,13 @@ let optionsSwitch=[
         { value: 'life', label: 'Жизнь'},
         { value: 'property', label: 'Имущество' },
         { value: 'dignity', label: 'Титул'},
+]
+
+let price=[
+  {label:'Я label 1',price:'100',type:'main'},
+  {label:'Я label 2',price:'50',type:'addition'},
+  {label:'Я label 3',price:'25',type:'addition'},
+  {label:'Я label 4',price:'12.5',type:'main'},
 ]
 
 export default {
@@ -95,9 +115,19 @@ export default {
       },
       adressField:{},
       adressField1:{},
-      nameField:{},
+      nameField1:{},
+      nameField2:{},
+      dateField1:new Date(),
+      dateField2:new Date(),
+      diagram:{
+        summ:0,
+        array:[],
+        count:0
+      },
+
       optionsList,
-      optionsSwitch
+      optionsSwitch,
+      price
     }
   },
   components: {
@@ -109,8 +139,21 @@ export default {
       ButtonUI,
       PromoCode,
       AdressField,
-      NameField
+      NameField,
+      DateField,
+      Basket
   },
+
+  methods:{
+    addDiarammArray(){
+      if(this.diagram.count==this.price.length){
+        this.diagram.count=0
+        this.diagram.array=[]
+      }
+      this.diagram.array.push(this.price[this.diagram.count])
+      this.diagram.count++
+    }
+  }
 };
 </script>
 
@@ -127,18 +170,25 @@ export default {
   font-family: Open\ Sans,Arial,Helvetica,sans-serif;
   background-color: #f2f2f2;
   padding:50px;
+  @include laptop{padding:0px;};
 }
 .container{
   padding:0px;
   margin:0px;
   display:flex;
   @include laptop{flex-wrap: wrap;};
-  margin-bottom:50px;
+  margin-bottom:100px;
+
 }
 .checkBox{
   display:flex;
-  margin-bottom:50px;
+  margin-bottom:100px;
   width:40%;
   flex-direction: column;
+  padding:20px;
+  border:1px solid black;
+}
+.basket{
+  width:400px;
 }
 </style>
