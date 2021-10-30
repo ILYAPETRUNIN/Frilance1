@@ -40,9 +40,14 @@
       </div>
 
       <div class='container'>
-          <AdressField :style="{marginRight:'10px'}"  v-model='adressField' name='addresField1' label='Адрес объекта' description="Описание адреса"/>
-          <AdressField v-model='adressField1' name='addresField2' label='Адрес объекта' description="Описание адреса" required hasError errorText='Ошибка'/>
+          <AdressField token='312eddceaa8cc4208e30c15ad2e402392e275a8e' :style="{marginRight:'10px'}"  v-model='adressField' name='addresField1' label='Адрес объекта' description="Описание адреса"/>
+          <AdressField token='312eddceaa8cc4208e30c15ad2e402392e275a8e' v-model='adressField1' name='addresField2' label='Адрес объекта' description="Описание адреса" required hasError errorText='Ошибка'/>
       </div>
+
+       <div class='container'>
+          <NameField token='312eddceaa8cc4208e30c15ad2e402392e275a8e' v-model='nameField' name='nameField1' label='Фамилия Имя Отчество' description="Описание ФИО"/>
+       </div>
+      
       
   </div>
 </template>
@@ -56,6 +61,7 @@ import CheckBox from "./components/toogleButton.vue";
 import ButtonUI from "./components/button.vue";
 import PromoCode from "./components/PromoCode.vue";
 import AdressField from "./components/adressField.vue";
+import NameField from "./components/nameField.vue";
 
 let optionsList= [
           { value: 'sber', label: 'СБЕРБАНК',isOnline:true },
@@ -89,6 +95,7 @@ export default {
       },
       adressField:{},
       adressField1:{},
+      nameField:{},
       optionsList,
       optionsSwitch
     }
@@ -101,7 +108,8 @@ export default {
       CheckBox,
       ButtonUI,
       PromoCode,
-      AdressField
+      AdressField,
+      NameField
   },
 };
 </script>

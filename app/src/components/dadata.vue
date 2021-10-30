@@ -12,9 +12,6 @@
 </template>
 
 <script>
-import axios from 'axios';
-
-
 
 export default {
     data(){
@@ -33,25 +30,29 @@ export default {
 
     methods:{
             async getData(data){
-                const url = "https://suggestions.dadata.ru/suggestions/api/4_1/rs/suggest/"+this.type;
+                var url = "https://suggestions.dadata.ru/suggestions/api/4_1/rs/suggest/"+this.type;
 
+                var options = {
+                    method: "POST",
+                    mode: "cors",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Accept": "application/json",
+                        "Authorization": "Token " + this.token
+                    },
+                    body: JSON.stringify({query: data})
+                }
                 try{
-                    const response = await axios.post(url, {
-                        headers: {
-                            "Content-Type": "application/json",
-                            "Accept": "application/json",
-                            "Authorization": "Token " + this.token
-                        },
-                        query: data
-                    })
-                    this.suggests=response.data.suggestions.slice(0,this.showItems)
-                    return  response
+                    let response = await fetch(url, options);
+                    let data=await response.json()
+                    this.suggests=data.suggestions.slice(0,this.showItems)
                 }
                 catch(e){
                     console.log(e)
                     throw e
                 }
             },
+
             suggestSelect(suggest){
                 this.$emit('suggestSelect',suggest)
             }

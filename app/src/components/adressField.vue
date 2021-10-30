@@ -3,7 +3,7 @@
         <div class='adressField__inputs'>
             <FrameUI class='adressField__input1' :name='name+"_frame1"' :description='!freeForm ? description:null' :errorText='errorText' :hasError='hasError' :required='required'  v-bind="$props" :focused='focused'>
                 <input :id='name+"_input1"' @focus="focused = true" @blur="focused = false" v-model='input1' class="text-field__input" type="text">
-                <dadata v-if='!freeForm' @suggestSelect='suggestSelect' :showItems='5' :isShow='focused' :text='input1' type='address' token = "e412919f545efa1bc8f49f81458f86aaf2e71f1a"/>
+                <dadata :token='token' v-if='!freeForm' @suggestSelect='suggestSelect' :showItems='5' :isShow='focused' :text='input1' type='address' />
             </FrameUI>
             
             <FrameUI v-if='freeForm' class='adressField__input2' label='№ квартиры'   :name='name+"_frame2"' :description='description' :focused='focused' :hasError='hasError'  :required='required'>
@@ -62,6 +62,7 @@ export default {
         required:{type:Boolean},
         description:{type:String},
         value:{default:{}},
+        token:{default:String}
     },
     watch:{
         input1:function(val){
